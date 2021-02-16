@@ -12,20 +12,6 @@ namespace mc_mod_update
 {
     class Program
     {
-        //public static void SaveStreamAsFile(string filePath, Stream inputStream, string fileName)
-        //{
-        //    DirectoryInfo info = new DirectoryInfo(filePath);
-        //    if (!info.Exists)
-        //    {
-        //        info.Create();
-        //    }
-
-        //    string path = Path.Combine(filePath, fileName);
-        //    using (FileStream outputFileStream = new FileStream(path, FileMode.Create))
-        //    {
-        //        inputStream.CopyTo(outputFileStream);
-        //    }
-        //}
         public static IWebDavClient _client = new WebDavClient();
         static void Main(string[] args)
         {
@@ -58,12 +44,6 @@ namespace mc_mod_update
                 if (!res.IsCollection)
                 {
                     listServerFile.Add(res.DisplayName);
-                    //Console.WriteLine(res.DisplayName);
-                    //var file = _client.GetRawFile($"{Config.MainConfig.Host}/{res.DisplayName}").Result;
-                    //using (FileStream fileStream = new FileStream($"{mcPath}/{ res.DisplayName}", FileMode.Create))
-                    //{
-                    //    file.Stream.CopyTo(fileStream);
-                    //}
                 }
             }
             if (listServerFile.Except(listLocalFile).ToList().Count != 0)
@@ -94,7 +74,7 @@ namespace mc_mod_update
             }
 
             Console.WriteLine("Press Enter to update");
-            Console.Read();
+            Console.ReadLine();
 
             foreach (var file in listServerFile.Except(listLocalFile))
             {
@@ -109,7 +89,7 @@ namespace mc_mod_update
             {
                 File.Delete($"{mcPath}/{file}");
             }
-
+            Console.WriteLine("update success");
             Console.Read();
         }
     }
